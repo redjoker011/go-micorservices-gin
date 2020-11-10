@@ -24,3 +24,27 @@ func TestShowIndexPageUnauthenticated(t *testing.T) {
 		return statusOK && pageOK
 	})
 }
+
+func TestShowArticlePageUnauthenticated(t *testing.T) {
+	r := getRouter(true)
+	r.GET("/articles/:id", GetArticle)
+
+	req, _ := http.NewRequest("GET", "/articles/1", nil)
+
+	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
+		statusOK := w.Code == http.StatusOK
+
+		return statusOK
+	})
+}
+
+func TestNotFoundArticleUnauthenticated(t *testing.T) {
+	r := getRouter(true)
+	r.GET("/articles/:id", GetArticle)
+
+	req, _ := http.NewRequest("GET", "/articles/3", nil)
+
+	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
+		return w.Code == http.StatusNotFound
+	})
+}

@@ -27,5 +27,5 @@ func GetArticle(id int) (Article, error) {
 		}
 	}
 
-	return Article{}, fmt.Errorf("Article with id %s not found", id)
+	return Article{}, fmt.Errorf("Article with id %v not found", id)
 }
