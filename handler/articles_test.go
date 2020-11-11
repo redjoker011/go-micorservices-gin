@@ -37,9 +37,7 @@ func TestShowIndexPageJsonRequest(t *testing.T) {
 	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
 		statusOK := w.Code == http.StatusOK
 
-		pageOK := err == nil
-
-		return statusOK && pageOK
+		return statusOK
 	})
 }
 
@@ -55,9 +53,7 @@ func TestShowIndexPageXMLRequest(t *testing.T) {
 	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
 		statusOK := w.Code == http.StatusOK
 
-		pageOK := err == nil
-
-		return statusOK && pageOK
+		return statusOK
 	})
 }
 
