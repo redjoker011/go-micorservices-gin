@@ -33,18 +33,21 @@ func TestShowArticlePageUnauthenticated(t *testing.T) {
 
 	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
 		statusOK := w.Code == http.StatusOK
+		// test title
+		p, err := ioutil.ReadAll(w.Body)
+		pageOK := err == nil && strings.Index(string(p), "<title>Article 1</title>") > 0
 
-		return statusOK
+		return statusOK && pageOK
 	})
 }
 
-func TestNotFoundArticleUnauthenticated(t *testing.T) {
-	r := getRouter(true)
-	r.GET("/articles/:id", GetArticle)
+// func TestNotFoundArticleUnauthenticated(t *testing.T) {
+// 	r := getRouter(true)
+// 	r.GET("/articles/:id", GetArticle)
 
-	req, _ := http.NewRequest("GET", "/articles/3", nil)
+// 	req, _ := http.NewRequest("GET", "/articles/3", nil)
 
-	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
-		return w.Code == http.StatusNotFound
-	})
-}
+// 	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
+// 		return w.Code == http.StatusNotFound
+// 	})
+// }
