@@ -25,6 +25,42 @@ func TestShowIndexPageUnauthenticated(t *testing.T) {
 	})
 }
 
+func TestShowIndexPageJsonRequest(t *testing.T) {
+	r := getRouter(true)
+	r.GET("/", ShowIndexPage)
+
+	// Create a request
+	req, _ := http.NewRequest("GET", "/", nil)
+	// Set Request to Json
+	req.Header.Set("Accept", "application/json")
+
+	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
+		statusOK := w.Code == http.StatusOK
+
+		pageOK := err == nil
+
+		return statusOK && pageOK
+	})
+}
+
+func TestShowIndexPageXMLRequest(t *testing.T) {
+	r := getRouter(true)
+	r.GET("/", ShowIndexPage)
+
+	// Create a request
+	req, _ := http.NewRequest("GET", "/", nil)
+	// Set Request to Json
+	req.Header.Set("Accept", "application/xml")
+
+	testHTTPResponse(t, r, req, func(w *httptest.ResponseRecorder) bool {
+		statusOK := w.Code == http.StatusOK
+
+		pageOK := err == nil
+
+		return statusOK && pageOK
+	})
+}
+
 func TestShowArticlePageUnauthenticated(t *testing.T) {
 	r := getRouter(true)
 	r.GET("/articles/:id", GetArticle)
