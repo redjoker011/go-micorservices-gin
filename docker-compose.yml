@@ -1,0 +1,6 @@
+version: "3.8"
+services:
+  web:
+    image: redjoker011/microservices-gin:0.1.0
+    ports:
+      - "8080:8080"
